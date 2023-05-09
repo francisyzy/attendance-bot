@@ -2,8 +2,8 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 datasource db {
-  provider = "mysql"
-  url      = env("DATABASE_URL")
+  provider = "sqlite"
+  url      = "file:dev.db"
 }
 
 generator client {
@@ -11,9 +11,10 @@ generator client {
 }
 
 model User {
-  telegramId   Int      @id
-  phone_number String?
-  name         String
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @default(now()) @updatedAt
+  telegramId Int      @id
+  name       String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @default(now()) @updatedAt
+  in         Int      @default(0)
+  out        Int      @default(0)
 }
