@@ -8,8 +8,10 @@ import { printBotInfo } from "./utils/consolePrintUsername";
 
 import bot from "./lib/bot";
 import helper from "./commands/helper";
-import echo from "./commands/echo";
 import catchAll from "./commands/catch-all";
+import { remindUsers } from "./utils/sendReminder";
+import checkIn from "./commands/checkIn";
+import { schedule } from "node-cron";
 
 const index = () => {
   //Production Settings
@@ -47,7 +49,11 @@ const index = () => {
   }
 
   helper();
-  echo();
+  checkIn();
+  // https://crontab.guru/#30_7_*_*_*
+  schedule("30 7 * * *", () => {
+    remindUsers();
+  });
 
   //Catch all unknown messages/commands
   catchAll();
