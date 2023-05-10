@@ -11,7 +11,7 @@ const helper = () => {
   nameHandler.on("text", async (ctx) => {
     await prisma.user.upsert({
       where: { telegramId: ctx.from.id },
-      update: { name: ctx.message.text },
+      update: { name: ctx.message.text, isBanned: false },
       create: {
         telegramId: ctx.from.id,
         name: ctx.message.text,
@@ -33,7 +33,7 @@ const helper = () => {
       if (ctx.from) {
         await prisma.user.upsert({
           where: { telegramId: ctx.from.id },
-          update: { name: ctx.from.first_name },
+          update: { name: ctx.from.first_name, isBanned: false },
           create: {
             telegramId: ctx.from.id,
             name: ctx.from.first_name,

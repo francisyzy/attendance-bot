@@ -9,8 +9,9 @@ import { printBotInfo } from "./utils/consolePrintUsername";
 import bot from "./lib/bot";
 import helper from "./commands/helper";
 import catchAll from "./commands/catch-all";
-import { remindUsers } from "./utils/sendReminder";
 import checkIn from "./commands/checkIn";
+import checkOut from "./commands/checkOut";
+import { remindUsers } from "./utils/sendReminder";
 import { schedule } from "node-cron";
 
 const index = () => {
@@ -50,6 +51,7 @@ const index = () => {
 
   helper();
   checkIn();
+  checkOut();
   // https://crontab.guru/#30_7_*_*_1-5
   schedule("30 7 * * 1-5", () => {
     remindUsers();

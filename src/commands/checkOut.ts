@@ -1,28 +1,24 @@
 import bot from "../lib/bot";
 import { PrismaClient } from "@prisma/client";
-import { sendCheckIn } from "../utils/send";
+import { sendCheckOut } from "../utils/send";
 import { remindCheckOut } from "../utils/sendReminder";
 import { hoursToMilliseconds } from "date-fns";
 
 const prisma = new PrismaClient();
-//General checkIn commands
-const checkIn = () => {
-  bot.action("Check-In", async (ctx) => {
+//General checkOut commands
+const checkOut = () => {
+  bot.action("Check-Out", async (ctx) => {
     const user = await prisma.user.findUnique({
       where: { telegramId: ctx.from!.id },
     });
     if (user) {
-      let response = await sendCheckIn(user.name);
+      let response = await sendCheckOut(user.name);
       if (response) {
         ctx.editMessageText(response.toString());
         if (response == 201) {
-          setTimeout(
-            () => remindCheckOut(user),
-            hoursToMilliseconds(9.5),
-          );
           await prisma.user.update({
             where: { telegramId: user.telegramId },
-            data: { in: { increment: 1 } },
+            data: { out: { increment: 1 } },
           });
         }
       } else {
@@ -36,4 +32,4 @@ const checkIn = () => {
   });
 };
 
-export default checkIn;
+export default checkOut;
