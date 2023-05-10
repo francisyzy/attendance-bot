@@ -50,8 +50,8 @@ const index = () => {
 
   helper();
   checkIn();
-  // https://crontab.guru/#30_7_*_*_*
-  schedule("30 7 * * *", () => {
+  // https://crontab.guru/#30_7_*_*_1-5
+  schedule("30 7 * * 1-5", () => {
     remindUsers();
   });
 
