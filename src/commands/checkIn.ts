@@ -3,6 +3,7 @@ import { PrismaClient } from "@prisma/client";
 import { sendCheckIn } from "../utils/send";
 import { remindCheckOut } from "../utils/sendReminder";
 import { hoursToMilliseconds } from "date-fns";
+import config from "../config";
 
 const prisma = new PrismaClient();
 //General checkIn commands
@@ -26,7 +27,10 @@ const checkIn = () => {
           });
         }
       } else {
-        ctx.editMessageText("error occurred somewhere");
+        ctx.editMessageText(
+          "error occurred somewhere, go submit manually " +
+            config.URL,
+        );
       }
     } else {
       ctx.editMessageText(
