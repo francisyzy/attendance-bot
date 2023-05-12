@@ -11,12 +11,12 @@ export function getBotCommands(): BotCommand[] {
       description: "Set/Change your name",
     },
     {
-      command: "account",
-      description: "Get account information of user",
+      command: "checkin",
+      description: "Check in using your name",
     },
     {
-      command: "help",
-      description: "Find out more on the bot",
+      command: "checkout",
+      description: "Check out using your name",
     },
   ];
 
