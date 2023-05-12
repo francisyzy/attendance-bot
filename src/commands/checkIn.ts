@@ -38,6 +38,34 @@ const checkIn = () => {
       );
     }
   });
+  bot.command("checkin", async (ctx) => {
+    const user = await prisma.user.findUnique({
+      where: { telegramId: ctx.from!.id },
+    });
+    if (user) {
+      let response = await sendCheckIn(user.name);
+      if (response) {
+        ctx.reply(response.toString());
+        if (response == 201) {
+          setTimeout(
+            () => remindCheckOut(user),
+            hoursToMilliseconds(9.5),
+          );
+          await prisma.user.update({
+            where: { telegramId: user.telegramId },
+            data: { in: { increment: 1 } },
+          });
+        }
+      } else {
+        ctx.reply(
+          "error occurred somewhere, go submit manually " +
+            config.URL,
+        );
+      }
+    } else {
+      ctx.reply("You are not registered, /start to register");
+    }
+  });
 };
 
 export default checkIn;
