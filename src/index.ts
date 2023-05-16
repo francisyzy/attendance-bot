@@ -15,39 +15,37 @@ import { remindUsers } from "./utils/sendReminder";
 import { schedule } from "node-cron";
 
 const index = () => {
-  //Production Settings
-  if (process.env.NODE_ENV === "production") {
-    //Production Logging
-    bot.use((ctx, next) => {
-      if (ctx.message && config.LOG_GROUP_ID) {
-        let userInfo: string;
-        if (ctx.message.from.username) {
-          userInfo = `name: <a href="tg://user?id=${
-            ctx.message.from.id
-          }">${toEscapeHTMLMsg(ctx.message.from.first_name)}</a> (@${
-            ctx.message.from.username
-          })`;
-        } else {
-          userInfo = `name: <a href="tg://user?id=${
-            ctx.message.from.id
-          }">${toEscapeHTMLMsg(ctx.message.from.first_name)}</a>`;
-        }
-        const text = `\ntext: ${
-          (ctx.message as Message.TextMessage).text
-        }`;
-        const logMessage = userInfo + toEscapeHTMLMsg(text);
-        bot.telegram.sendMessage(config.LOG_GROUP_ID, logMessage, {
-          parse_mode: "HTML",
-        });
+  bot.use(Telegraf.log());
+  bot.use((ctx, next) => {
+    if (
+      ctx.message &&
+      config.LOG_GROUP_ID &&
+      ctx.message.from.username != config.ADMIN_USERNAME
+    ) {
+      let userInfo: string;
+      if (ctx.message.from.username) {
+        userInfo = `name: <a href="tg://user?id=${
+          ctx.message.from.id
+        }">${toEscapeHTMLMsg(ctx.message.from.first_name)}</a> (@${
+          ctx.message.from.username
+        })`;
+      } else {
+        userInfo = `name: <a href="tg://user?id=${
+          ctx.message.from.id
+        }">${toEscapeHTMLMsg(ctx.message.from.first_name)}</a>`;
       }
-      return next();
-    });
-  } else {
-    //Development logging
-    bot.use(Telegraf.log());
-    bot.launch();
-    printBotInfo(bot);
-  }
+      const text = `\ntext: ${
+        (ctx.message as Message.TextMessage).text
+      }`;
+      const logMessage = userInfo + toEscapeHTMLMsg(text);
+      bot.telegram.sendMessage(config.LOG_GROUP_ID, logMessage, {
+        parse_mode: "HTML",
+      });
+    }
+    return next();
+  });
+  bot.launch();
+  printBotInfo(bot);
 
   helper();
   checkIn();

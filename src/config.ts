@@ -8,6 +8,7 @@ const config = {
   API_TOKEN: process.env.API_TOKEN,
   LOG_GROUP_ID: process.env.LOG_GROUP_ID,
   URL: process.env.URL,
+  ADMIN_USERNAME: process.env.ADMIN_USERNAME || "",
 };
 
 export default config;
