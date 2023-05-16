@@ -21,15 +21,18 @@ const checkOut = () => {
           });
         }
       } else {
-        ctx.editMessageText("error occurred somewhere, go do it manually " + config.URL);
+        ctx.editMessageText(
+          "error occurred somewhere, go do it manually " + config.URL,
+        );
       }
     } else {
       ctx.editMessageText(
         "You are not registered, /start to register",
       );
-      
+      ctx.answerCbQuery();
     }
   });
+
   bot.command("checkout", async (ctx) => {
     const user = await prisma.user.findUnique({
       where: { telegramId: ctx.from!.id },
@@ -45,12 +48,12 @@ const checkOut = () => {
           });
         }
       } else {
-        ctx.reply("error occurred somewhere, go do it manually " + config.URL);
+        ctx.reply(
+          "error occurred somewhere, go do it manually " + config.URL,
+        );
       }
     } else {
-      ctx.reply(
-        "You are not registered, /start to register",
-      );
+      ctx.reply("You are not registered, /start to register");
     }
   });
 };

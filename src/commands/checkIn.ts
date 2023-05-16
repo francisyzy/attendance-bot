@@ -37,7 +37,9 @@ const checkIn = () => {
         "You are not registered, /start to register",
       );
     }
+    ctx.answerCbQuery();
   });
+
   bot.command("checkin", async (ctx) => {
     const user = await prisma.user.findUnique({
       where: { telegramId: ctx.from!.id },
