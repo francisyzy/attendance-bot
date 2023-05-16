@@ -73,7 +73,13 @@ const helper = () => {
       return ctx.reply("Please /start to create an account");
     }
   });
-  bot.help((ctx) => ctx.reply("Help message"));
+  bot.help((ctx) =>
+    ctx.reply(
+      `/checkin to check in\n/checkout to check out\n/start to set your name again.
+\n201 means HTTP Response code 201 which means success, otherwise it will tell u got error.
+will send you reminder to check in at 730am then check out at the right time (hopefully)`,
+    ),
+  );
 };
 
 export default helper;
