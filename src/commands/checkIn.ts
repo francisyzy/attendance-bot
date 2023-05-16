@@ -1,6 +1,6 @@
 import bot from "../lib/bot";
 import { PrismaClient } from "@prisma/client";
-import { sendCheckIn } from "../utils/send";
+import { sendRequest } from "../utils/send";
 import { remindCheckOut } from "../utils/sendReminder";
 import { hoursToMilliseconds } from "date-fns";
 import config from "../config";
@@ -13,7 +13,7 @@ const checkIn = () => {
       where: { telegramId: ctx.from!.id },
     });
     if (user) {
-      let response = await sendCheckIn(user.name);
+      let response = await sendRequest(user.name, true);
       if (response) {
         ctx.editMessageText(response.toString());
         if (response == 201) {
@@ -43,7 +43,7 @@ const checkIn = () => {
       where: { telegramId: ctx.from!.id },
     });
     if (user) {
-      let response = await sendCheckIn(user.name);
+      let response = await sendRequest(user.name, true);
       if (response) {
         ctx.reply(response.toString());
         if (response == 201) {

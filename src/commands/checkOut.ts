@@ -1,6 +1,6 @@
 import bot from "../lib/bot";
 import { PrismaClient } from "@prisma/client";
-import { sendCheckOut } from "../utils/send";
+import { sendRequest } from "../utils/send";
 import config from "../config";
 
 const prisma = new PrismaClient();
@@ -11,7 +11,7 @@ const checkOut = () => {
       where: { telegramId: ctx.from!.id },
     });
     if (user) {
-      let response = await sendCheckOut(user.name);
+      let response = await sendRequest(user.name, false);
       if (response) {
         ctx.editMessageText(response.toString());
         if (response == 201) {
@@ -35,7 +35,7 @@ const checkOut = () => {
       where: { telegramId: ctx.from!.id },
     });
     if (user) {
-      let response = await sendCheckOut(user.name);
+      let response = await sendRequest(user.name, false);
       if (response) {
         ctx.reply(response.toString());
         if (response == 201) {
