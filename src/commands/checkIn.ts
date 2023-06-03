@@ -15,7 +15,7 @@ const checkIn = () => {
     if (user) {
       let response = await sendRequest(user.name, true);
       if (response) {
-        ctx.editMessageText(response.toString());
+        ctx.editMessageText(`Res Code: ${response.toString()}, at ${new Date().toString()}`);
         if (response == 201) {
           setTimeout(
             () => remindCheckOut(user),
@@ -27,9 +27,8 @@ const checkIn = () => {
           });
         }
       } else {
-        ctx.editMessageText(
-          "error occurred somewhere, go submit manually " +
-            config.URL,
+        ctx.editMessageText(`Res Code: ${response.toString()}, at ${new Date().toString()}
+error occurred somewhere, go submit manually @ ${config.URL}`,
         );
       }
     } else {
@@ -47,7 +46,7 @@ const checkIn = () => {
     if (user) {
       let response = await sendRequest(user.name, true);
       if (response) {
-        ctx.reply(response.toString());
+        ctx.relpy(`Res Code: ${response.toString()}, at ${new Date().toString()}`);
         if (response == 201) {
           setTimeout(
             () => remindCheckOut(user),
@@ -59,9 +58,8 @@ const checkIn = () => {
           });
         }
       } else {
-        ctx.reply(
-          "error occurred somewhere, go submit manually " +
-            config.URL,
+        ctx.reply(`Res Code: ${response.toString()}, at ${new Date().toString()}
+error occurred somewhere, go submit manually @ ${config.URL}`,
         );
       }
     } else {

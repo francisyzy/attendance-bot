@@ -13,7 +13,7 @@ const checkOut = () => {
     if (user) {
       let response = await sendRequest(user.name, false);
       if (response) {
-        ctx.editMessageText(response.toString());
+        ctx.editMessageText(`Res Code: ${response.toString()}, at ${new Date().toString()}`);
         if (response == 201) {
           await prisma.user.update({
             where: { telegramId: user.telegramId },
@@ -21,8 +21,8 @@ const checkOut = () => {
           });
         }
       } else {
-        ctx.editMessageText(
-          "error occurred somewhere, go do it manually " + config.URL,
+        ctx.editMessageText(`Res Code: ${response.toString()}, at ${new Date().toString()}
+error occurred somewhere, go submit manually @ ${config.URL}`,
         );
       }
     } else {
@@ -40,7 +40,7 @@ const checkOut = () => {
     if (user) {
       let response = await sendRequest(user.name, false);
       if (response) {
-        ctx.reply(response.toString());
+        ctx.reply(`Res Code: ${response.toString()}, at ${new Date().toString()}`);
         if (response == 201) {
           await prisma.user.update({
             where: { telegramId: user.telegramId },
@@ -48,8 +48,8 @@ const checkOut = () => {
           });
         }
       } else {
-        ctx.reply(
-          "error occurred somewhere, go do it manually " + config.URL,
+        ctx.reply(`Res Code: ${response.toString()}, at ${new Date().toString()}
+error occurred somewhere, go submit manually @ ${config.URL}`,
         );
       }
     } else {
