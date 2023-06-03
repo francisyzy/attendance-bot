@@ -13,7 +13,9 @@ const checkOut = () => {
     if (user) {
       let response = await sendRequest(user.name, false);
       if (response) {
-        ctx.editMessageText(`Res Code: ${response.toString()}, at ${new Date().toString()}`);
+        ctx.editMessageText(
+          `Res Code: ${response.toString()}, at ${new Date().toString()}`,
+        );
         if (response == 201) {
           await prisma.user.update({
             where: { telegramId: user.telegramId },
@@ -21,9 +23,10 @@ const checkOut = () => {
           });
         }
       } else {
-        ctx.editMessageText(`Res Code: ${response.toString()}, at ${new Date().toString()}
-error occurred somewhere, go submit manually @ ${config.URL}`,
-        );
+        ctx.editMessageText(`Res Code: ${
+          response ? response.toString() : ""
+        }, at ${new Date().toString()}
+error occurred somewhere, go submit manually @ ${config.URL}`);
       }
     } else {
       ctx.editMessageText(
@@ -40,7 +43,9 @@ error occurred somewhere, go submit manually @ ${config.URL}`,
     if (user) {
       let response = await sendRequest(user.name, false);
       if (response) {
-        ctx.reply(`Res Code: ${response.toString()}, at ${new Date().toString()}`);
+        ctx.reply(
+          `Res Code: ${response.toString()}, at ${new Date().toString()}`,
+        );
         if (response == 201) {
           await prisma.user.update({
             where: { telegramId: user.telegramId },
@@ -48,9 +53,10 @@ error occurred somewhere, go submit manually @ ${config.URL}`,
           });
         }
       } else {
-        ctx.reply(`Res Code: ${response.toString()}, at ${new Date().toString()}
-error occurred somewhere, go submit manually @ ${config.URL}`,
-        );
+        ctx.reply(`Res Code: ${
+          response ? response.toString() : ""
+        }, at ${new Date().toString()}
+error occurred somewhere, go submit manually @ ${config.URL}`);
       }
     } else {
       ctx.reply("You are not registered, /start to register");

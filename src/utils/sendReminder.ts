@@ -85,8 +85,8 @@ export async function sendReport(): Promise<void> {
   const users = await prisma.user.findMany({
     where: { isBanned: false },
   });
-  
-  let usersCount = users.length();
+
+  let usersCount = users.length;
   let remindInCount = 0;
   let inCount = 0;
   let remindOutCount = 0;
@@ -105,12 +105,12 @@ RemindIn: ${remindInCount}
 In: ${inCount}
 RemindOut: ${remindOutCount}
 Out: ${outCount}
-AvgRemindIn: ${remindInCount/usersCount}
-AvgIn: ${inCount/usersCount}
-AvgRemindOut: ${remindOutCount/usersCount}
-AvgOut: ${outCount/usersCount}`
+AvgRemindIn: ${remindInCount / usersCount}
+AvgIn: ${inCount / usersCount}
+AvgRemindOut: ${remindOutCount / usersCount}
+AvgOut: ${outCount / usersCount}`;
 
-  if (config.LOG_GROUP_ID){
+  if (config.LOG_GROUP_ID) {
     bot.telegram.sendMessage(config.LOG_GROUP_ID, message, {
       parse_mode: "HTML",
     });

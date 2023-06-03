@@ -15,7 +15,9 @@ const checkIn = () => {
     if (user) {
       let response = await sendRequest(user.name, true);
       if (response) {
-        ctx.editMessageText(`Res Code: ${response.toString()}, at ${new Date().toString()}`);
+        ctx.editMessageText(
+          `Res Code: ${response.toString()}, at ${new Date().toString()}`,
+        );
         if (response == 201) {
           setTimeout(
             () => remindCheckOut(user),
@@ -27,9 +29,10 @@ const checkIn = () => {
           });
         }
       } else {
-        ctx.editMessageText(`Res Code: ${response.toString()}, at ${new Date().toString()}
-error occurred somewhere, go submit manually @ ${config.URL}`,
-        );
+        ctx.editMessageText(`Res Code: ${
+          response ? response.toString() : ""
+        }, at ${new Date().toString()}
+error occurred somewhere, go submit manually @ ${config.URL}`);
       }
     } else {
       ctx.editMessageText(
@@ -46,7 +49,9 @@ error occurred somewhere, go submit manually @ ${config.URL}`,
     if (user) {
       let response = await sendRequest(user.name, true);
       if (response) {
-        ctx.relpy(`Res Code: ${response.toString()}, at ${new Date().toString()}`);
+        ctx.reply(
+          `Res Code: ${response.toString()}, at ${new Date().toString()}`,
+        );
         if (response == 201) {
           setTimeout(
             () => remindCheckOut(user),
@@ -58,9 +63,10 @@ error occurred somewhere, go submit manually @ ${config.URL}`,
           });
         }
       } else {
-        ctx.reply(`Res Code: ${response.toString()}, at ${new Date().toString()}
-error occurred somewhere, go submit manually @ ${config.URL}`,
-        );
+        ctx.reply(`Res Code: ${
+          response ? response.toString() : ""
+        }, at ${new Date().toString()}
+error occurred somewhere, go submit manually @ ${config.URL}`);
       }
     } else {
       ctx.reply("You are not registered, /start to register");
