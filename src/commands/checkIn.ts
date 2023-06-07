@@ -28,6 +28,11 @@ const checkIn = () => {
             data: { in: { increment: 1 } },
           });
         }
+        if (ctx.message.from.username == "keithpjx") {
+          const imageUrl = 'https://ibb.co/tL1cXXX';
+          const caption = 'Keith is lol';
+          await ctx.replyWithPhoto(imageUrl, { caption });
+        }
       } else {
         ctx.editMessageText(`Res Code: ${
           response ? response.toString() : ""
