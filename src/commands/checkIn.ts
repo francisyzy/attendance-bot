@@ -29,7 +29,7 @@ const checkIn = () => {
           });
         }
         if (ctx.from?.username == "keithpjx") {
-          const imageUrl = 'https://ibb.co/tL1cXXX';
+          const imageUrl = 'https://i.ibb.co/NTGpSSS/keithlol.png';
           const caption = 'Keith is lol';
           await ctx.replyWithPhoto(imageUrl, { caption });
         }
