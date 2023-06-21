@@ -28,9 +28,9 @@ const checkIn = () => {
             data: { in: { increment: 1 } },
           });
         }
-        if (ctx.from?.username == "keithpjx") {
-          const imageUrl = 'https://i.ibb.co/NTGpSSS/keithlol.png';
-          const caption = 'Keith is lol';
+        if (ctx.from?.username == "keithpjx" || ctx.from?.username == "ai_lin02") {
+          const imageUrl = 'https://i.ibb.co/X83pkZt/IMG-0863.jpg';
+          const caption = 'Cat';
           await ctx.replyWithPhoto(imageUrl, { caption });
         }
       } else {
